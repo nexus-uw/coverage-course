@@ -1,0 +1,19 @@
+{
+  "name": "coverage-talk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp server-ci-rg && gulp client-ci-rg"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {    
+  },
+  "dependencies": {
+    "chai": "^2.1.0",   
+    "rangle-gulp": "git@github.com:rangle/rangle-gulp.git",
+    "gulp": "^3.8.11",
+    "rangle-gulp": "git://github.com/rangle/rangle-gulp"
+  }
+}

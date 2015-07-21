@@ -1,0 +1,11 @@
+client/bower_components
+node_modules
+coverage
+# Logs
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
