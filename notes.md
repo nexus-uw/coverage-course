@@ -19,7 +19,7 @@ class: center, middle, inverse
 # Because it results in better code.
 
 ---
-- Heavily suggests that developers should write tests.
+- Heavily suggests that developers should write tests everywhere.
 
 - A code base with high code coverage has been throughly tested and has a lower chance of containing bugs than a code base with low code coverage.
 
@@ -54,10 +54,10 @@ function failFunc(key){
   return something[key]();
 }
 failFunc('foo');
+//failFunc('what about something that is not foo? this should probably be tested as well');
 ```
 
 ---
-
 # It will not catch what is not coded.
 ```javascript
 makeRequestToFlakyAPI()
@@ -86,6 +86,7 @@ function failFunc(input) {
 
 failFunc(1);
 failFunc(-1);
+//failFunc(0); //ie. neither conditional is true
 ```
 .footer Istanbul calculates edge pair coverage, for which the above has 100%, but under prime path (or complete coverage), the above would have ~66.66...%.
 
@@ -127,26 +128,32 @@ class: middle, inverse
 # How to Setup Istanbul Test Coverage
 ### Ask someone on your project.
 
-### Working example for Karma and Mocha: https://github.com/nexus-uw/coverage-talk
+### Simple working example for Karma and Mocha: https://github.com/nexus-uw/coverage-talk (could use an update to modern JS)
 
-### finally, talk to me
+### For a full project using all the goodies (Transitional Angular): https://github.com/rangle/ngcourse-next
+
+### finally, talk to me (Simon)
 
 
 ---
 
 ## How is Rangle Doing in the Coverage Department?
 
-1. Back in March of 2015,  rangle.io projects have reported estimated test coverage as follows:
+1. Back in March of 2015, when coverage was introduced at Rangle, only one project had a real coverage number and most people claimed to be  50 - 90 %.
 
-     - four projects are at 50-90%
-     - one project is at 0-10% (inherited angular code base)
-     - one project have not submitted their survey
-     - one project is all CSS
-     - one project is currently just inherited code
+2. Currently, dont have up to date statics but most projects are now using Istanbul. (check the wall of glory or shame... outside Yuri's office)
 
-2. In one of those cases (Shape), the results were actually measured using Istanbul. In all other cases their guestimates.
+---
+## Optimizing for test coverage will only result in more unit tests so closing notes on what makes for good tests
 
-3. Currently, dont have up to date statics but most projects are now using Istanbul.
+- make the upfront investment in fleshing out all the expected functionality in the story's acceptance critia so people will know what needs to be tested
+- dont write tests for coverage, write tests to document what is expected of the software
+- when possible, write tests free of developer jargon so other people can get something out of them
+ie: 'it should throw an error' vs 'it should require a user name'
+ie: 'it should resolve to the suceesful response' vs 'it should make an API request and return the created thingy'
+- expect specific fields of the result that are the result of specific/disintict functionality of the function
+(note it should probably be a seperate function or module if testing lots of seperate things within one 'unit test'. there always is a {whatever-module}-utils-service)
+- include error messages in the expectations (ie. expect(masterFunction('what is the meaning of life?')).to.equal(42,'it should do what is expected, not what is different')) so that future people will know why things are expected
 
 ---
 # And here are some links

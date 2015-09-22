@@ -4,13 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "gulp server-ci-rg && gulp client-ci-rg"
+    "test": "gulp server-ci-rg && gulp client-ci-rg",
+		"start":"static-server .;open http://localhost:9080"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {    
   },
   "dependencies": {
+		"static-server":"^2",
     "chai": "^2.1.0",   
     "rangle-gulp": "git@github.com:rangle/rangle-gulp.git",
     "gulp": "^3.8.11",
