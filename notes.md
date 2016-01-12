@@ -12,7 +12,7 @@ class: middle, inverse
 class: center, middle, inverse
 
 # Why should we use it?
-
+![](imgs/boring.gif)
 ---
 class: center, middle, inverse
 
@@ -128,11 +128,13 @@ class: middle, inverse
 # How to Setup Istanbul Test Coverage
 ### Ask someone on your project.
 
-### Simple working example for Karma and Mocha: https://github.com/nexus-uw/coverage-talk (could use an update to modern JS)
+### Simple working example for Karma and Mocha: https://github.com/nexus-uw/coverage-talk  (Angular 1.x and ES5)
 
-### For a full project using all the goodies (Transitional Angular): https://github.com/rangle/ngcourse-next
+### For a full project using all the goodies (Transitional Angular): https://github.com/rangle/ngcourse-next (Angular 1.x and TypeScript)
 
-### finally, talk to me (Simon)
+### Maybe look at https://github.com/rangle/ng2-redux-starter in the near future?
+
+### Finally, talk to me (Simon)
 
 
 ---
@@ -146,15 +148,65 @@ class: middle, inverse
 ---
 ## Optimizing for test coverage will only result in more unit tests so closing notes on what makes for good tests
 
-- make the upfront investment in fleshing out all the expected functionality in the story's acceptance critia so people will know what needs to be tested
+- make the upfront investment in fleshing out all the expected functionality in the story's acceptance criteria so people will know what needs to be tested
 - dont write tests for coverage, write tests to document what is expected of the software
 - when possible, write tests free of developer jargon so other people can get something out of them
 ie: 'it should throw an error' vs 'it should require a user name'
-ie: 'it should resolve to the suceesful response' vs 'it should make an API request and return the created thingy'
+ie: 'it should resolve to the successful response' vs 'it should make an API request and return the created thingy'
 - expect specific fields of the result that are the result of specific/disintict functionality of the function
-(note it should probably be a seperate function or module if testing lots of seperate things within one 'unit test'. there always is a {whatever-module}-utils-service)
+(note it should probably be a separate function or module if testing lots of separate things within one 'unit test'. there always is a {whatever-module}-utils-service)
 - include error messages in the expectations (ie. expect(masterFunction('what is the meaning of life?')).to.equal(42,'it should do what is expected, not what is different')) so that future people will know why things are expected
 
+---
+## Some Examples of Going for Extra Coverage Marks
+![](imgs/bonus.png)
+
+---
+### Test that the translation strings used in the tests actually exist
+
+```js
+$provide.service('$translate', function () {
+  return function (translationKey) {
+    expect(TRANSLATIONS_DICTIONARY.en[translationKey]).to.be.a('string', 'we should ' +
+      'have the english translation for messages');
+    expect(TRANSLATIONS_DICTIONARY.fr[translationKey]).to.be.a('string', 'we should ' +
+      'have the french translation for messages');
+    return Q.when(TRANSLATIONS_DICTIONARY.en[translationKey]);
+  };
+});
+//Where 'TRANSLATIONS_DICTIONARY' is the actual translation file
+```
+source: Jason while working on Sprout at Work
+---
+### Test that all of the referenced templates exist in the cache
+
+```js
+  beforeEach(inject(function (_$state_, _$templateCache_) {
+    $state = _$state_;
+    $templateCache = _$templateCache_;
+  }));
+
+  function checkRouteTemplateExists(name) {
+    describe(name + ' state', function() {
+      it('Has a template that exists', function() {
+        var currentState = $state.get(name);
+        var templateUrl;
+        if (currentState.views !== undefined) {
+          templateUrl = currentState.views[Object.keys(currentState.views)[0]].templateUrl;
+        } else {
+          templateUrl = currentState.templateUrl;
+        }
+        expect($templateCache.get(templateUrl)).to.exist;
+      });
+    });
+  }
+
+  checkRouteTemplateExists('landing');
+  checkRouteTemplateExists('home.login');
+  ...
+});
+```
+source: Nikolas on Clear Cost Health
 ---
 # And here are some links
 
@@ -162,5 +214,11 @@ ie: 'it should resolve to the suceesful response' vs 'it should make an API requ
 - [Wikipedia code coverage page ](http://en.wikipedia.org/wiki/Code_coverage)
 - [Coveralls](https://coveralls.io/features): Code coverage CI integration SAS.
 - [UW Testing Course ](https://ece.uwaterloo.ca/~lintan/courses/testing/): Deep dive into all the different code coverage methods.
+- [ava](https://github.com/sindresorhus/ava): ~parrallel JS unit test framework
+- [volkswagen](https://github.com/auchenberg/volkswagen): timely as ever
 
 ![](imgs/vVD14D.gif)
+
+---
+# doge tax
+![](imgs/doge.jpgx)
