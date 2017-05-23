@@ -13,7 +13,7 @@
   },
   "dependencies": {
 		"static-server":"^2",
-    "chai": "^2.1.0",   
+    "chai": "^3.5.0",   
     "rangle-gulp": "git@github.com:rangle/rangle-gulp.git",
     "gulp": "^3.8.11",
     "rangle-gulp": "git://github.com/rangle/rangle-gulp"
